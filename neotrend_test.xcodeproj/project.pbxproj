@@ -15,6 +15,8 @@
 		532050A82DB044BC0032A6D2 /* Pulse in Frameworks */ = {isa = PBXBuildFile; productRef = 532050A72DB044BC0032A6D2 /* Pulse */; };
 		532050AA2DB044BC0032A6D2 /* PulseProxy in Frameworks */ = {isa = PBXBuildFile; productRef = 532050A92DB044BC0032A6D2 /* PulseProxy */; };
 		532050AC2DB044BC0032A6D2 /* PulseUI in Frameworks */ = {isa = PBXBuildFile; productRef = 532050AB2DB044BC0032A6D2 /* PulseUI */; };
+		532050B42DB19A100032A6D2 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 532050B32DB19A100032A6D2 /* Nuke */; };
+		532050B62DB19A100032A6D2 /* NukeUI in Frameworks */ = {isa = PBXBuildFile; productRef = 532050B52DB19A100032A6D2 /* NukeUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,10 +49,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				532050B42DB19A100032A6D2 /* Nuke in Frameworks */,
 				532050A82DB044BC0032A6D2 /* Pulse in Frameworks */,
 				532050562DAED4470032A6D2 /* ComposableArchitecture in Frameworks */,
 				5320509C2DB03BCF0032A6D2 /* CachingPlayerItem in Frameworks */,
 				532050792DB036DC0032A6D2 /* NukeVideo in Frameworks */,
+				532050B62DB19A100032A6D2 /* NukeUI in Frameworks */,
 				532050852DB039D40032A6D2 /* SystemPackage in Frameworks */,
 				532050AA2DB044BC0032A6D2 /* PulseProxy in Frameworks */,
 				532050AC2DB044BC0032A6D2 /* PulseUI in Frameworks */,
@@ -105,6 +109,8 @@
 				532050A72DB044BC0032A6D2 /* Pulse */,
 				532050A92DB044BC0032A6D2 /* PulseProxy */,
 				532050AB2DB044BC0032A6D2 /* PulseUI */,
+				532050B32DB19A100032A6D2 /* Nuke */,
+				532050B52DB19A100032A6D2 /* NukeUI */,
 			);
 			productName = neotrend_test;
 			productReference = 5320502C2DAED34E0032A6D2 /* neotrend_test.app */;
@@ -476,6 +482,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 532050A62DB044BC0032A6D2 /* XCRemoteSwiftPackageReference "Pulse" */;
 			productName = PulseUI;
+		};
+		532050B32DB19A100032A6D2 /* Nuke */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 532050772DB036DC0032A6D2 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = Nuke;
+		};
+		532050B52DB19A100032A6D2 /* NukeUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 532050772DB036DC0032A6D2 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

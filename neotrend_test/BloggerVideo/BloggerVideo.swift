@@ -11,11 +11,24 @@ public struct BloggerVideo: Sendable {
 
     public var isLoadingReview: Bool = false
     public var isPlaying: Bool = false
+    public var isFooterVisible: Bool = false
 
     public var avatarURL: URL? = nil
+    public var authorName: String = ""
+
     public var videoURL: URL? = nil
     public var player: AVPlayer? = nil
     public var playerLooper: AVPlayerLooper? = nil
+
+    public var name: String = ""
+    public var createdDate: String = ""
+
+    public var currentTime: CMTime = .zero
+
+    public var viewsCount: Int = 0
+    public var commentsCount: Int = 0
+    public var repostsCount: Int = 0
+    public var savesCount: Int = 0
 
     public init() {}
   }
@@ -33,6 +46,11 @@ public struct BloggerVideo: Sendable {
     case playVideoTapped
     case pauseVideoTapped
 
+    case showFooter
+    case hideFooter
+
+    case updateCurrentTime(CMTime)
+
     @CasePathable
     public enum Alert: Equatable, Sendable {
       case cancelTapped
@@ -41,6 +59,10 @@ public struct BloggerVideo: Sendable {
   }
 
   @Dependency(\.restClient) var restClient
+
+  private enum CancelID: Hashable {
+    case footerVisibilityTimer
+  }
 
   public init() {}
 
@@ -99,10 +121,16 @@ public struct BloggerVideo: Sendable {
       case let .reviewResponse(.success(response)):
         state.isLoadingReview = false
 
+        state.avatarURL = URL.baseURL?
+          .appending(path: RestConstants.authorsPath)
+          .appending(path: String(response.authorDto.id))
+          .appending(path: RestConstants.avatarPath)
+        state.authorName = response.authorDto.name
+
         let playerItem = CachingPlayerItem(
           model: response
         )
-        
+
         let queuePlayer = AVQueuePlayer(playerItem: playerItem)
         state.player = queuePlayer
         state.player?.automaticallyWaitsToMinimizeStalling = false
@@ -110,12 +138,18 @@ public struct BloggerVideo: Sendable {
         state.player?.play()
         state.isPlaying = true
 
-        state.avatarURL = URL.baseURL?
-          .appending(path: RestConstants.authorsPath)
-          .appending(path: String(response.authorDto.id))
-          .appending(path: RestConstants.avatarPath)
+        state.name = response.name
+        state.createdDate = response.createdDate
+        state.viewsCount = response.statistics.viewsCount
+        state.commentsCount = response.statistics.commentsCount
+        state.repostsCount = response.statistics.repostsCount
+        state.savesCount = response.statistics.savesCount
 
-        return .none
+        state.isFooterVisible = true
+        return .merge(
+          .send(.showFooter),
+          startPlayerTimeObserver(player: queuePlayer)
+        )
 
       case let .reviewResponse(.failure(error)):
         state.alert = AlertState {
@@ -136,17 +170,58 @@ public struct BloggerVideo: Sendable {
       case .playVideoTapped:
         state.player?.play()
         state.isPlaying = true
+
         return .none
 
       case .pauseVideoTapped:
         state.player?.pause()
         state.isPlaying = false
+
+        return .none
+
+      case .showFooter:
+        state.isFooterVisible = true
+
+        return .merge(
+          .cancel(id: CancelID.footerVisibilityTimer),
+          .run { send in
+            try? await Task.sleep(nanoseconds: 3_000_000_000)
+
+            await send(.hideFooter)
+          }.cancellable(id: CancelID.footerVisibilityTimer)
+        )
+
+      case .hideFooter:
+        state.isFooterVisible = false
+        return .none
+
+      case let .updateCurrentTime(time):
+        state.currentTime = time
+
         return .none
       }
     }
     .ifLet(\.$alert, action: \.alert)
   }
+
+  private func startPlayerTimeObserver(
+    player: AVPlayer
+  ) -> Effect<Action> {
+    return .run(priority: .high) { [player = player] send in
+      let interval = CMTime(
+        seconds: 1,
+        preferredTimescale: CMTimeScale(NSEC_PER_SEC)
+      )
+
+      let periodicTimeStream = player.periodicTime(forInterval: interval)
+
+      for await _ in periodicTimeStream {
+        await send(.updateCurrentTime(player.currentTime()))
+      }
+    }
+  }
 }
+
 
 extension CachingPlayerItem {
   var response: ReviewResponse? {
