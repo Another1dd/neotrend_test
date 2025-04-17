@@ -1,3 +1,4 @@
+import AVKit
 import ComposableArchitecture
 import UIKit
 
@@ -9,6 +10,12 @@ public class BloggerVideoViewController: UIViewController {
   }
 
   private let activityIndicator = UIActivityIndicatorView(style: .large)
+
+  private let playButton = UIButton(type: .system)
+  private let pauseButton = UIButton(type: .system)
+
+  private let playerLayer = AVPlayerLayer()
+  private let playerContainer = UIView()
 
   public init(store: StoreOf<BloggerVideo>) {
     self.store = store
@@ -25,20 +32,40 @@ public class BloggerVideoViewController: UIViewController {
     
     store.send(.onLoad)
 
-    view.backgroundColor = .systemBackground
+    view.backgroundColor = .white
     navigationController?.setNavigationBarHidden(true, animated: false)
 
     setupActivityIndicator()
+    setupPlayerContainer()
 
     observe { [weak self] in
       guard let self else { return }
 
       self.activityIndicator.isHidden = !store.isLoadingReview
+      self.playButton.isHidden = store.isLoadingReview || store.videoURL == nil || store.isPlaying
+      self.pauseButton.isHidden = !store.isPlaying
+      
+      if let player = store.player, self.playerLayer.player != player {
+        self.playerLayer.player = player
+      }
     }
 
     present(item: $store.scope(state: \.alert, action: \.alert)) { store in
       UIAlertController(store: store)
     }
+  }
+
+  public override func viewDidAppear(_ animated: Bool) {
+    store.send(.onAppear)
+  }
+
+  public override func viewDidDisappear(_ animated: Bool) {
+    store.send(.onDisappear)
+  }
+
+  public override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    playerLayer.frame = playerContainer.bounds
   }
 
   private func setupActivityIndicator() {
@@ -51,5 +78,41 @@ public class BloggerVideoViewController: UIViewController {
     ])
 
     activityIndicator.startAnimating()
+  }
+  
+  private func setupPlayerContainer() {
+    playerContainer.translatesAutoresizingMaskIntoConstraints = false
+    playerContainer.backgroundColor = .white
+    view.addSubview(playerContainer)
+    
+    playerLayer.videoGravity = .resizeAspectFill
+    playerContainer.layer.addSublayer(playerLayer)
+    
+    NSLayoutConstraint.activate([
+      playerContainer.topAnchor.constraint(equalTo: view.topAnchor),
+      playerContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+      playerContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+      playerContainer.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+    ])
+    
+    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(playerTapped))
+    playerContainer.addGestureRecognizer(tapGesture)
+  }
+
+  
+  @objc private func playButtonTapped() {
+    store.send(.playVideoTapped)
+  }
+  
+  @objc private func pauseButtonTapped() {
+    store.send(.pauseVideoTapped)
+  }
+
+  @objc private func playerTapped() {
+    if store.isPlaying {
+      store.send(.pauseVideoTapped)
+    } else {
+      store.send(.playVideoTapped)
+    }
   }
 }

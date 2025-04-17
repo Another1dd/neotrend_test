@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		532050562DAED4470032A6D2 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 532050552DAED4470032A6D2 /* ComposableArchitecture */; };
 		5320506B2DAEE4000032A6D2 /* Get in Frameworks */ = {isa = PBXBuildFile; productRef = 5320506A2DAEE4000032A6D2 /* Get */; };
+		532050792DB036DC0032A6D2 /* NukeVideo in Frameworks */ = {isa = PBXBuildFile; productRef = 532050782DB036DC0032A6D2 /* NukeVideo */; };
+		532050852DB039D40032A6D2 /* SystemPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 532050842DB039D40032A6D2 /* SystemPackage */; };
+		5320509C2DB03BCF0032A6D2 /* CachingPlayerItem in Frameworks */ = {isa = PBXBuildFile; productRef = 5320509B2DB03BCF0032A6D2 /* CachingPlayerItem */; };
+		532050A82DB044BC0032A6D2 /* Pulse in Frameworks */ = {isa = PBXBuildFile; productRef = 532050A72DB044BC0032A6D2 /* Pulse */; };
+		532050AA2DB044BC0032A6D2 /* PulseProxy in Frameworks */ = {isa = PBXBuildFile; productRef = 532050A92DB044BC0032A6D2 /* PulseProxy */; };
+		532050AC2DB044BC0032A6D2 /* PulseUI in Frameworks */ = {isa = PBXBuildFile; productRef = 532050AB2DB044BC0032A6D2 /* PulseUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +47,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				532050A82DB044BC0032A6D2 /* Pulse in Frameworks */,
 				532050562DAED4470032A6D2 /* ComposableArchitecture in Frameworks */,
+				5320509C2DB03BCF0032A6D2 /* CachingPlayerItem in Frameworks */,
+				532050792DB036DC0032A6D2 /* NukeVideo in Frameworks */,
+				532050852DB039D40032A6D2 /* SystemPackage in Frameworks */,
+				532050AA2DB044BC0032A6D2 /* PulseProxy in Frameworks */,
+				532050AC2DB044BC0032A6D2 /* PulseUI in Frameworks */,
 				5320506B2DAEE4000032A6D2 /* Get in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,6 +99,12 @@
 			packageProductDependencies = (
 				532050552DAED4470032A6D2 /* ComposableArchitecture */,
 				5320506A2DAEE4000032A6D2 /* Get */,
+				532050782DB036DC0032A6D2 /* NukeVideo */,
+				532050842DB039D40032A6D2 /* SystemPackage */,
+				5320509B2DB03BCF0032A6D2 /* CachingPlayerItem */,
+				532050A72DB044BC0032A6D2 /* Pulse */,
+				532050A92DB044BC0032A6D2 /* PulseProxy */,
+				532050AB2DB044BC0032A6D2 /* PulseUI */,
 			);
 			productName = neotrend_test;
 			productReference = 5320502C2DAED34E0032A6D2 /* neotrend_test.app */;
@@ -119,6 +137,10 @@
 			packageReferences = (
 				532050542DAED4470032A6D2 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 				532050692DAEE4000032A6D2 /* XCRemoteSwiftPackageReference "Get" */,
+				532050772DB036DC0032A6D2 /* XCRemoteSwiftPackageReference "Nuke" */,
+				532050832DB039D40032A6D2 /* XCRemoteSwiftPackageReference "swift-system" */,
+				5320509A2DB03BCF0032A6D2 /* XCRemoteSwiftPackageReference "CachingPlayerItem" */,
+				532050A62DB044BC0032A6D2 /* XCRemoteSwiftPackageReference "Pulse" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5320502D2DAED34E0032A6D2 /* Products */;
@@ -380,6 +402,38 @@
 				minimumVersion = 2.2.1;
 			};
 		};
+		532050772DB036DC0032A6D2 /* XCRemoteSwiftPackageReference "Nuke" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Nuke";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.8.0;
+			};
+		};
+		532050832DB039D40032A6D2 /* XCRemoteSwiftPackageReference "swift-system" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-system";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.2;
+			};
+		};
+		5320509A2DB03BCF0032A6D2 /* XCRemoteSwiftPackageReference "CachingPlayerItem" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sukov/CachingPlayerItem.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.2;
+			};
+		};
+		532050A62DB044BC0032A6D2 /* XCRemoteSwiftPackageReference "Pulse" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kean/Pulse";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -392,6 +446,36 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 532050692DAEE4000032A6D2 /* XCRemoteSwiftPackageReference "Get" */;
 			productName = Get;
+		};
+		532050782DB036DC0032A6D2 /* NukeVideo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 532050772DB036DC0032A6D2 /* XCRemoteSwiftPackageReference "Nuke" */;
+			productName = NukeVideo;
+		};
+		532050842DB039D40032A6D2 /* SystemPackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 532050832DB039D40032A6D2 /* XCRemoteSwiftPackageReference "swift-system" */;
+			productName = SystemPackage;
+		};
+		5320509B2DB03BCF0032A6D2 /* CachingPlayerItem */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5320509A2DB03BCF0032A6D2 /* XCRemoteSwiftPackageReference "CachingPlayerItem" */;
+			productName = CachingPlayerItem;
+		};
+		532050A72DB044BC0032A6D2 /* Pulse */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 532050A62DB044BC0032A6D2 /* XCRemoteSwiftPackageReference "Pulse" */;
+			productName = Pulse;
+		};
+		532050A92DB044BC0032A6D2 /* PulseProxy */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 532050A62DB044BC0032A6D2 /* XCRemoteSwiftPackageReference "Pulse" */;
+			productName = PulseProxy;
+		};
+		532050AB2DB044BC0032A6D2 /* PulseUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 532050A62DB044BC0032A6D2 /* XCRemoteSwiftPackageReference "Pulse" */;
+			productName = PulseUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

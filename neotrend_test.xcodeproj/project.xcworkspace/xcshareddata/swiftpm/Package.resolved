@@ -1,6 +1,15 @@
 {
-  "originHash" : "02dfec1b8eea99b64f87ff313c32ff8e118ca3e86d78991ec3e816f4e323c68d",
+  "originHash" : "f210391e009021bb4692393a16f7aff9255a80b6211d1b5724064ffa1d837578",
   "pins" : [
+    {
+      "identity" : "cachingplayeritem",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/sukov/CachingPlayerItem.git",
+      "state" : {
+        "revision" : "8b2843387cf1c81419ee9669991f6df5244749cb",
+        "version" : "2.0.2"
+      }
+    },
     {
       "identity" : "combine-schedulers",
       "kind" : "remoteSourceControl",
@@ -17,6 +26,24 @@
       "state" : {
         "revision" : "31249885da1052872e0ac91a2943f62567c0d96d",
         "version" : "2.2.1"
+      }
+    },
+    {
+      "identity" : "nuke",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Nuke",
+      "state" : {
+        "revision" : "0ead44350d2737db384908569c012fe67c421e4d",
+        "version" : "12.8.0"
+      }
+    },
+    {
+      "identity" : "pulse",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Pulse",
+      "state" : {
+        "revision" : "6125ce7fb51b114ba71b761d18cfd5557923bd4d",
+        "version" : "5.1.4"
       }
     },
     {
@@ -125,6 +152,15 @@
       "state" : {
         "revision" : "0687f71944021d616d34d922343dcef086855920",
         "version" : "600.0.1"
+      }
+    },
+    {
+      "identity" : "swift-system",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-system",
+      "state" : {
+        "revision" : "a34201439c74b53f0fd71ef11741af7e7caf01e1",
+        "version" : "1.4.2"
       }
     },
     {
