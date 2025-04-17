@@ -308,6 +308,7 @@ public class BloggerVideoViewController: UIViewController {
     }
 
     orderButton.configuration = configuration
+    orderButton.addTarget(self, action: #selector(orderButtonTapped), for: .touchUpInside)
     view.addSubview(orderButton)
 
     NSLayoutConstraint.activate([
@@ -315,6 +316,16 @@ public class BloggerVideoViewController: UIViewController {
       orderButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
       orderButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
     ])
+  }
+
+  @objc private func orderButtonTapped() {
+    let vc = BloggerOrderViewController(
+      username: store.authorName,
+      rating:  4,
+      price: 120
+    )
+    vc.modalPresentationStyle = .overFullScreen
+    present(vc, animated: true)
   }
 
   private func setupAvatarImageView() {
