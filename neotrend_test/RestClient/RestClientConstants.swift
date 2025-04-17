@@ -13,8 +13,4 @@ public enum RestConstants {
 
   // Params
   public static let fileName = "fileName"
-
-  // Headers
-  public static let accept = "Accept"
-  public static let all = "*/*"
 }

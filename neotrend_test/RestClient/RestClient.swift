@@ -6,8 +6,6 @@ import Foundation
 public struct RestClient: Sendable {
   public var review:
     @Sendable () async throws -> ReviewResponse
-
-  public var download: @Sendable (String) async throws -> URL
 }
 
 extension RestClient: TestDependencyKey {

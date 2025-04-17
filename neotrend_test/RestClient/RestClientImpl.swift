@@ -9,9 +9,6 @@ extension RestClient: DependencyKey {
     return Self(
       review: {
         try await impl.review()
-      },
-      download: {
-        try await impl.download(fileName: $0)
       }
     )
   }
@@ -30,16 +27,5 @@ final actor RestClientImpl {
     let request = Request<ReviewResponse>(path: RestConstants.reviewPath, method: .get)
 
     return try await api.send(request).value
-  }
-
-  func download(fileName: String) async throws -> URL {
-    let request = Request(
-      path: RestConstants.videoPath,
-      method: .get,
-      query: [(RestConstants.fileName, fileName)],
-      headers: [RestConstants.accept: RestConstants.all]
-    )
-
-    return  try await api.download(for: request).value
   }
 }
