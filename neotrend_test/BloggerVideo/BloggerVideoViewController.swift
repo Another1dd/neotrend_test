@@ -123,7 +123,7 @@ public class BloggerVideoViewController: UIViewController {
       bookmarkConfig?.title = self.formatCount(store.savesCount)
       self.bookmarkButton.configuration = bookmarkConfig
     }
-
+    
     present(item: $store.scope(state: \.alert, action: \.alert)) { store in
       UIAlertController(store: store)
     }
@@ -139,6 +139,7 @@ public class BloggerVideoViewController: UIViewController {
 
   public override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
+
     playerLayer.frame = playerContainer.bounds
   }
 
@@ -221,7 +222,7 @@ public class BloggerVideoViewController: UIViewController {
     statsStackView.axis = .horizontal
     statsStackView.distribution = .fillEqually
     statsStackView.alignment = .center
-    
+
     view.addSubview(statsStackView)
 
     [viewsButton, commentsButton, sharesButton, bookmarkButton].forEach { button in
@@ -320,10 +321,17 @@ public class BloggerVideoViewController: UIViewController {
 
   @objc private func orderButtonTapped() {
     let vc = BloggerOrderViewController(
-      username: store.authorName,
-      rating:  4,
-      price: 120
+      store: Store(
+        initialState: BloggerOrder.State(
+          username: store.authorName,
+          rating: 4.5, // Default rating
+          price: 100 // Default price
+        )
+      ) {
+        BloggerOrder()
+      }
     )
+
     vc.modalPresentationStyle = .overFullScreen
     present(vc, animated: true)
   }

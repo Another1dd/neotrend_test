@@ -14,7 +14,6 @@ public enum Root {
         return .none
       case .bloggerVideo:
         return .none
-
       }
     }
     .ifCaseLet(\.start, action: \.start) {

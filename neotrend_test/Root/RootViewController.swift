@@ -16,8 +16,6 @@ class RootViewController: UINavigationController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
-    print("Root loaded")
     
     observe { [weak self] in
       guard let self else { return }
